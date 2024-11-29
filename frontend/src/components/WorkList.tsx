@@ -107,7 +107,7 @@ const WorkList: React.FC = () => {
                           />
                         )} */}
                       <ItemSpec>
-                        {item.spec.map((specItem: any, specIndex: number) => (
+                        {item.spec?.map((specItem: any, specIndex: number) => (
                           <p key={specIndex}>{specItem.specList}</p>
                         ))}
                       </ItemSpec>

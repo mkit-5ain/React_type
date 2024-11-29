@@ -8,16 +8,23 @@ type SpecItem = {
   specList: string;
 };
 
+type funcItem = {
+  functionList: string;
+};
+
 type DataType = {
-  spec: SpecItem[];
-  title: string;
-  state: string;
+  spec?: SpecItem[];
+  function?: funcItem[];
+  title?: string;
+  state?: string;
   imageUrl?: string;
   videoUrl?: string;
 };
 
 const List = () => {
-  const [selectedItem, setSelectedItem] = useState<DataType | null>(null);
+  const [selectedItem, setSelectedItem] = useState<DataType | null>(
+    hoverItems.length > 0 ? hoverItems[0] : null
+  );
 
   const ItemClick = (item: DataType) => {
     setSelectedItem(item);
@@ -26,22 +33,24 @@ const List = () => {
   return (
     <Layout>
       <LayoutInner>
-        <ItemList>
-          {hoverItems.map((item, index) => (
-            <ListItem key={index} onClick={() => ItemClick(item)}>
-              <ItemTitle data-title={item.title}>{item.title}</ItemTitle>
-            </ListItem>
-          ))}
-        </ItemList>
+        <div>
+          <ItemList>
+            {hoverItems.map((item, index) => (
+              <ListItem
+                isSelected={selectedItem?.title === item.title}
+                key={index}
+                onClick={() => ItemClick(item)}
+              >
+                <ItemTitle data-title={item.title}>{item.title}</ItemTitle>
+              </ListItem>
+            ))}
+          </ItemList>
+        </div>
         <ContentsWrap>
           <ContentsInner>
             {selectedItem && (
-              <Contents
-                key={selectedItem.title} // 고유 키 필요
-                timeout={1500} // 애니메이션 지속 시간
-              >
+              <Contents key={selectedItem.title} timeout={1500}>
                 <div>
-                  <p>{selectedItem.title}</p>
                   {selectedItem.imageUrl ? (
                     <ItemBanner src={selectedItem.imageUrl} alt="" />
                   ) : selectedItem.videoUrl ? (
@@ -49,9 +58,17 @@ const List = () => {
                   ) : (
                     <p>없음</p>
                   )}
-                  {selectedItem.spec.map((specItem, index) => (
-                    <div key={index}>{specItem.specList}</div>
-                  ))}
+                  <p>{selectedItem.state}</p>
+                  <div>
+                    {selectedItem.spec?.map((specItem, index) => (
+                      <p key={index}>{specItem.specList}</p>
+                    ))}
+                  </div>
+                  <div>
+                    {selectedItem.function?.map((funcItem, index) => (
+                      <p key={index}>{funcItem.functionList}</p>
+                    ))}
+                  </div>
                 </div>
               </Contents>
             )}
@@ -81,13 +98,16 @@ const LayoutInner = styled.div`
 const ItemList = styled.ul`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
   counter-reset: item;
 `;
 
 const ContentsWrap = styled.section`
+  margin: 100px 0px;
   width: 700px;
+  font-size: 12px;
 `;
 
 const ContentsInner = styled(TransitionGroup)`
@@ -135,13 +155,13 @@ const ItemTitle = styled.span`
   }
 `;
 
-const ListItem = styled.li`
+const ListItem = styled.li<{ isSelected: any }>`
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 5px;
   height: 16px;
-  color: #fff0b3;
+  color: ${(props) => (props.isSelected ? "#111" : "#fff0b3")};
   overflow: hidden;
   cursor: pointer;
   counter-increment: item;
@@ -149,10 +169,11 @@ const ListItem = styled.li`
     content: "[ " counter(item) " ]";
     font-size: 10px;
     font-weight: 010;
+    transition: 0.3s linear;
   }
   &:hover {
     ${ItemTitle} {
-      translate: 0% -50%;
+      translate: 0% 50%;
     }
   }
 `;

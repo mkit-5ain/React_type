@@ -381,7 +381,7 @@ const hoverItems = [
   {
     title: "Noice",
     imageUrl: "/assets/images/work/noice.webp",
-    state: "New Work",
+    state: "New Work & Renewal",
     environment: "/assets/images/icon/i-pcmo.png",
     descriptions: [
       {
@@ -734,13 +734,10 @@ const hoverItems = [
     ],
     function: [
       {
-        functionList: "Obcaecati voluptates ",
+        functionList: "router, component",
       },
       {
-        functionList: "nobis tempora veniam, cum corporis",
-      },
-      {
-        functionList: "consequuntur repellendus minus sint aperiam",
+        functionList: "styled-compoenent",
       },
     ],
     Participation: [
@@ -809,57 +806,8 @@ const hoverItems = [
     ],
   },
   {
-    title: "Noice",
-    imageUrl: "/assets/images/work/noice.webp",
-    state: "New Work",
-    environment: "/assets/images/icon/i-pcmo.png",
-    descriptions: [
-      {
-        descriptionList: "praesentium sint? ",
-      },
-      {
-        descriptionList: "ero mollitia minima",
-      },
-      {
-        descriptionList: "consectetur adipisicing",
-      },
-    ],
-    spec: [
-      {
-        specList: "HTML5",
-      },
-      {
-        specList: "CSS3",
-      },
-      {
-        specList: "JAVASCRIPT",
-      },
-      {
-        specList: "CAFE24",
-      },
-    ],
-    function: [
-      {
-        functionList: "Obcaecati voluptates ",
-      },
-      {
-        functionList: "nobis tempora veniam, cum corporis",
-      },
-      {
-        functionList: "consequuntur repellendus minus sint aperiam",
-      },
-    ],
-    Participation: [
-      {
-        functionList: "Obcaecati voluptates ",
-      },
-      {
-        functionList: "nobis tempora veniam, cum corporis",
-      },
-      {
-        functionList: "consequuntur repellendus minus sint aperiam",
-      },
-    ],
+    title: "LottoSports",
+    state: "exit",
   },
 ];
 
