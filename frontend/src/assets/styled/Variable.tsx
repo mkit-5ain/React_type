@@ -18,8 +18,8 @@ export const clipPathFadeIn = keyframes`
 `;
 
 // ~ 480px: 모바일 세로
-// 481px ~ 768px: 모바일 가로, 타블렛 세로
-// 769px ~ 1024px 또는 1280px: 타블렛 가로, 노트북
+// 481px ~ 768px: 모바일 가로, 태블릿 세로
+// 769px ~ 1024px 또는 1280px: 태블릿 가로, 노트북
 // 1025px 및 1281px ~: 데스크탑
 
 export const deviceSizes = {
@@ -32,7 +32,7 @@ export const device = {
   tablet: `screen and (max-width: ${deviceSizes.tablet}px)`,
 };
 
-export const variable = {
+const variable = {
   white: "#fffce1",
   PrimaryColor: "#f1f1f1",
   black: "#0e100f",

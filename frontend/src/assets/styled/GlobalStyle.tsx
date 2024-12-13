@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const resetStyled = `
+    
     body,p,dl,ol,ul,li,dd,input,h1,h2,h3,h4,h5,h6,article,section { 
         margin: 0px; 
         padding: 0px; 
@@ -153,8 +154,10 @@ const fontStyled = `
 
 const variableStyled = `
     :root {
-        --white: #fffce1;
-        --black: #0e100f;
+        --primary: #fff0b3;
+        --body-in: #fd7024;
+        --body-out: #cd4d07;
+        --active: #0e100f;
         --bezier: cubic-bezier(0.99, -0.02, 0, 1.25);
         scroll-timeline: --squareTimeline y
     }

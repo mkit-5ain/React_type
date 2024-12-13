@@ -1,10 +1,15 @@
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import styled from "styled-components";
-import React, { useState } from "react";
+import { useState } from "react";
+
+import Color, { Palette } from "color-thief-react";
 
 import hoverItems from "../data/HoverItems";
 
-type SpecItem = {
+type imgItem = {
+  imgUrl: string;
+};
+
+type specItem = {
   specList: string;
 };
 
@@ -13,7 +18,8 @@ type funcItem = {
 };
 
 type DataType = {
-  spec?: SpecItem[];
+  pcImg?: imgItem[];
+  spec?: specItem[];
   function?: funcItem[];
   title?: string;
   state?: string;
@@ -27,52 +33,88 @@ const List = () => {
   );
 
   const ItemClick = (item: DataType) => {
-    setSelectedItem(item);
+    if ("startViewTransition" in document) {
+      document.startViewTransition(() => {
+        setSelectedItem(item);
+      });
+    } else {
+      setSelectedItem(item);
+    }
+  };
+
+  const [color, setColor] = useState<string | null>(null); // 배경색 상태
+
+  const handleColorExtract = (color: string | undefined) => {
+    if (color) {
+      setColor(color); // 추출된 색상으로 상태 업데이트
+    }
   };
 
   return (
-    <Layout>
+    <Layout style={{ backgroundColor: color || "" }}>
       <LayoutInner>
-        <div>
+        <ItemListWrap>
           <ItemList>
             {hoverItems.map((item, index) => (
-              <ListItem
-                isSelected={selectedItem?.title === item.title}
-                key={index}
-                onClick={() => ItemClick(item)}
-              >
-                <ItemTitle data-title={item.title}>{item.title}</ItemTitle>
+              <ListItem key={index} onClick={() => ItemClick(item)}>
+                <ItemTitle $isSelected={selectedItem?.title === item.title}>
+                  {item.title}
+                </ItemTitle>
               </ListItem>
             ))}
           </ItemList>
-        </div>
+        </ItemListWrap>
+
         <ContentsWrap>
-          <ContentsInner>
-            {selectedItem && (
-              <Contents key={selectedItem.title} timeout={1500}>
-                <div>
-                  {selectedItem.imageUrl ? (
-                    <ItemBanner src={selectedItem.imageUrl} alt="" />
-                  ) : selectedItem.videoUrl ? (
-                    <ItemVideo src={selectedItem.videoUrl} autoPlay muted />
-                  ) : (
-                    <p>없음</p>
-                  )}
-                  <p>{selectedItem.state}</p>
-                  <div>
-                    {selectedItem.spec?.map((specItem, index) => (
-                      <p key={index}>{specItem.specList}</p>
-                    ))}
-                  </div>
-                  <div>
-                    {selectedItem.function?.map((funcItem, index) => (
-                      <p key={index}>{funcItem.functionList}</p>
-                    ))}
-                  </div>
-                </div>
-              </Contents>
-            )}
-          </ContentsInner>
+          {selectedItem && (
+            <Contents>
+              <Description>{selectedItem.state}</Description>
+              {selectedItem.imageUrl ? (
+                <>
+                  <ItemBanner src={selectedItem.imageUrl} alt="" />
+                  <Color
+                    src={selectedItem.imageUrl}
+                    crossOrigin="anonymous"
+                    format="hex"
+                  >
+                    {({ data }) => {
+                      handleColorExtract(data); // 색상 추출 시 상태 업데이트
+                      return "";
+                    }}
+                  </Color>
+                  <Palette
+                    src={selectedItem.imageUrl}
+                    crossOrigin="anonymous"
+                    format="hex"
+                    colorCount={3}
+                  >
+                    {({ data }) => {
+                      return "";
+                    }}
+                  </Palette>
+                </>
+              ) : selectedItem.videoUrl ? (
+                <ItemVideo src={selectedItem.videoUrl} autoPlay muted />
+              ) : (
+                ""
+              )}
+              <Img>
+                {selectedItem.pcImg?.map((imgItem, index) => (
+                  <img key={index} src={imgItem.imgUrl} alt="pc 이미지" />
+                ))}
+              </Img>
+              <Spec>
+                {selectedItem.spec?.map((specItem, index) => (
+                  <p key={index}>{specItem.specList}</p>
+                ))}
+              </Spec>
+              <Function>
+                {selectedItem.function?.map((funcItem, index) => (
+                  <p key={index}>{funcItem.functionList}</p>
+                ))}
+              </Function>
+            </Contents>
+          )}
         </ContentsWrap>
       </LayoutInner>
     </Layout>
@@ -83,10 +125,10 @@ export default List;
 
 const Layout = styled.article`
   color: #fff;
-  background: linear-gradient(#fd7024, #cd4d07);
+  transition: background-color 1s ease;
 `;
 
-const LayoutInner = styled.div`
+const LayoutInner = styled.section`
   display: flex;
   justify-content: space-between;
   width: 1200px;
@@ -95,46 +137,27 @@ const LayoutInner = styled.div`
   box-sizing: border-box;
 `;
 
+const ItemListWrap = styled.section`
+  margin-top: 100px;
+`;
+
 const ItemList = styled.ul`
   display: flex;
   flex-direction: column;
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+  position: sticky;
+  top: 50px;
+  mix-blend-mode: difference;
   counter-reset: item;
 `;
 
 const ContentsWrap = styled.section`
-  margin: 100px 0px;
   width: 700px;
+  margin: 100px 0px;
   font-size: 12px;
 `;
-
-const ContentsInner = styled(TransitionGroup)`
-  position: relative;
-  .enter {
-    opacity: 0;
-    transition: 0.5s linear;
-  }
-  .enter-active {
-    opacity: 1;
-    transition: 0.5s linear;
-    transition-delay: 0.5s;
-  }
-  .exit {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    transition: 0.5s linear;
-    opacity: 0;
-  }
-  .exit-active {
-    opacity: 0;
-    transition: 0.5s linear;
-  }
-`;
-
-const Contents = styled(CSSTransition)``;
 
 const ItemBanner = styled.img`
   width: 100%;
@@ -144,36 +167,53 @@ const ItemVideo = styled.video`
   width: 100%;
 `;
 
-const ItemTitle = styled.span`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  transition: 0.3s linear;
-  &:after {
-    content: attr(data-title);
-  }
-`;
-
-const ListItem = styled.li<{ isSelected: any }>`
+const ListItem = styled.li`
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
-  gap: 5px;
   height: 16px;
-  color: ${(props) => (props.isSelected ? "#111" : "#fff0b3")};
-  overflow: hidden;
   cursor: pointer;
   counter-increment: item;
+`;
+
+const ItemTitle = styled.p<{ $isSelected: any }>`
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 14px;
+  &:after {
+    content: "";
+    width: 15px;
+    height: 11px;
+    background-image: ${({ $isSelected }) =>
+      $isSelected ? `url("/assets/images/icon/i-more-arrow.svg")` : "none"};
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 10px;
+  }
+
   &:before {
     content: "[ " counter(item) " ]";
     font-size: 10px;
-    font-weight: 010;
-    transition: 0.3s linear;
-  }
-  &:hover {
-    ${ItemTitle} {
-      translate: 0% 50%;
-    }
   }
 `;
+
+const Contents = styled.section``;
+
+const Description = styled.section`
+  margin: 0px 0px 20px;
+  font-size: 14px;
+`;
+
+const Img = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  img {
+    width: 100%;
+  }
+`;
+
+const Spec = styled.section``;
+const Function = styled.section``;
