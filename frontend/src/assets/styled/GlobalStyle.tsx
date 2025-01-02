@@ -54,7 +54,7 @@ const fontStyled = `
         font-family: 'Futura';
         src: local("Futura"),
         url('../assets/font/Futura-XBlk-BT.woff') format("woff"),
-        url('../assets/font/Futura-XBlk-BT.woff2') format("woff2");
+        url('../assets/font/Futura-XBlk-BT.woff2') format("font-woff2");
         unicode-range: U+0020-002F, U+003A-0040, U+005B-0060, U+007B-007E,
         U+0041-005A, U+0061-007A, U+0030-0039;
         font-display: fallback;
@@ -64,7 +64,7 @@ const fontStyled = `
         font-family: 'font';
         font-weight: 900;
         src: local("font"),
-        url('../assets/font/Montserrat-Black.woff2') format("woff2"),
+        url('../assets/font/Montserrat-Black.woff2') format("font-woff2"),
         url('../assets/font/Montserrat-Black.woff') format("woff");
         unicode-range: U+0041-005a,U+0061-007a,U+0030-0039;
         font-display: fallback
@@ -73,8 +73,8 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 800;
-        src: local("font"),url('../assets/font/Montserrat-ExtraBold.woff2') format("woff2"),
-        url('../assets/font/Montserrat-ExtraBold.0757ee1d.woff') format("woff");
+        src: local("font"),url('../assets/font/Montserrat-ExtraBold.woff2') format("font-woff2"),
+        url('../assets/font/Montserrat-ExtraBold.woff') format("woff");
         unicode-range: U+0041-005a,U+0061-007a,U+0030-0039;
         font-display: fallback
     }
@@ -82,8 +82,8 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 700;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoB.woff2') format("woff2"),
-        url('../assets/font/AppleSDGothicNeoB.e2c661b5.woff') format("woff");
+        src: local("font"),url('../assets/font/AppleSDGothicNeoB.woff2') format("font-woff2"),
+        url('../assets/font/AppleSDGothicNeoB.woff') format("woff");
         unicode-range: U+0041-005a,U+0061-007a,U+0030-0039;
         font-display: fallback
     }
@@ -91,8 +91,8 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: "500";
-        src: local("font"),url('../assets/font/Montserrat-Medium.woff2') format("woff2"),
         url('../assets/font/Montserrat-Medium.woff') format("woff");
+        src: local("font"),url('../assets/font/Montserrat-Medium.woff2') format("font-woff2"),
         unicode-range: U+0041-005a,U+0061-007a,U+0030-0039;
         font-display: fallback
     }
@@ -100,7 +100,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 400;
-        src: local("font"),url('../assets/font/Montserrat-Regular.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/Montserrat-Regular.woff2') format("font-woff2"),
         url('../assets/font/Montserrat-Regular.woff') format("woff");
         unicode-range: U+0041-005a,U+0061-007a,U+0030-0039;
         font-display: fallback
@@ -109,7 +109,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 900;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoH.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/AppleSDGothicNeoH.woff2') format("font-woff2"),
         url('../assets/font/AppleSDGothicNeoH.woff') format("woff");
         unicode-range: U+ac00-d7a3;
         font-display: fallback
@@ -118,7 +118,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 800;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoEB.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/AppleSDGothicNeoEB.woff2') format("font-woff2"),
         url('../assets/font/AppleSDGothicNeoEB.woff') format("woff");
         unicode-range: U+ac00-d7a3;
         font-display: fallback
@@ -127,7 +127,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 700;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoB.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/AppleSDGothicNeoB.woff2') format("font-woff2"),
         url('../assets/font/AppleSDGothicNeoB.woff') format("woff");
         unicode-range: U+ac00-d7a3;
         font-display: fallback
@@ -136,7 +136,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 500;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoM.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/AppleSDGothicNeoM.woff2') format("font-woff2"),
         url('../assets/font/AppleSDGothicNeoM.woff') format("woff");
         unicode-range: U+ac00-d7a3;
         font-display: fallback
@@ -145,7 +145,7 @@ const fontStyled = `
     @font-face {
         font-family: 'font';
         font-weight: 400;
-        src: local("font"),url('../assets/font/AppleSDGothicNeoL.woff2') format("woff2"),
+        src: local("font"),url('../assets/font/AppleSDGothicNeoL.woff2') format("font-woff2"),
         url('../assets/font/AppleSDGothicNeoL.woff') format("woff");
         unicode-range: U+ac00-d7a3;
         font-display: fallback

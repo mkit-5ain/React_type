@@ -125,7 +125,7 @@ export default List;
 
 const Layout = styled.article`
   color: #fff;
-  transition: background-color 1s ease;
+  transition: background-color 0.3s ease-in-out;
 `;
 
 const LayoutInner = styled.section`
