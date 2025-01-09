@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
 
-import Color, { Palette } from "color-thief-react";
-
 import hoverItems from "../data/HoverItems";
 
 type imgItem = {
@@ -41,17 +39,8 @@ const List = () => {
       setSelectedItem(item);
     }
   };
-
-  const [color, setColor] = useState<string | null>(null); // 배경색 상태
-
-  const handleColorExtract = (color: string | undefined) => {
-    if (color) {
-      setColor(color); // 추출된 색상으로 상태 업데이트
-    }
-  };
-
   return (
-    <Layout style={{ backgroundColor: color || "" }}>
+    <Layout>
       <LayoutInner>
         <ItemListWrap>
           <ItemList>
@@ -64,7 +53,6 @@ const List = () => {
             ))}
           </ItemList>
         </ItemListWrap>
-
         <ContentsWrap>
           {selectedItem && (
             <Contents>
@@ -72,26 +60,6 @@ const List = () => {
               {selectedItem.imageUrl ? (
                 <>
                   <ItemBanner src={selectedItem.imageUrl} alt="" />
-                  <Color
-                    src={selectedItem.imageUrl}
-                    crossOrigin="anonymous"
-                    format="hex"
-                  >
-                    {({ data }) => {
-                      handleColorExtract(data); // 색상 추출 시 상태 업데이트
-                      return "";
-                    }}
-                  </Color>
-                  <Palette
-                    src={selectedItem.imageUrl}
-                    crossOrigin="anonymous"
-                    format="hex"
-                    colorCount={3}
-                  >
-                    {({ data }) => {
-                      return "";
-                    }}
-                  </Palette>
                 </>
               ) : selectedItem.videoUrl ? (
                 <ItemVideo src={selectedItem.videoUrl} autoPlay muted />
@@ -149,7 +117,6 @@ const ItemList = styled.ul`
   gap: 20px;
   position: sticky;
   top: 50px;
-  mix-blend-mode: difference;
   counter-reset: item;
 `;
 
@@ -171,6 +138,7 @@ const ListItem = styled.li`
   display: flex;
   justify-content: flex-end;
   height: 16px;
+  color: #111;
   cursor: pointer;
   counter-increment: item;
 `;
